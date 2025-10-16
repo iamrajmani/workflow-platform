@@ -31,15 +31,14 @@ public class UserController {
     public List<User> getAllUsers() {
         System.out.println("📋 Fetching all users from database");
         List<User> users = userService.getAllUsers();
-        // Remove passwords from response for security
         users.forEach(user -> user.setPassword(null));
-        System.out.println("✅ Found " + users.size() + " users");
+        System.out.println("Found " + users.size() + " users");
         return users;
     }
     
     @GetMapping("/role/{role}")
     public List<User> getUsersByRole(@PathVariable String role) {
-        System.out.println("👥 Fetching users by role: " + role);
+        System.out.println("Fetching users by role: " + role);
         List<User> users = userService.getUsersByRole(role);
         users.forEach(user -> user.setPassword(null));
         return users;
@@ -47,40 +46,36 @@ public class UserController {
     
     @GetMapping("/department/{department}")
     public List<User> getUsersByDepartment(@PathVariable String department) {
-        System.out.println("🏢 Fetching users by department: " + department);
+        System.out.println("Fetching users by department: " + department);
         List<User> users = userService.getUsersByDepartment(department);
         users.forEach(user -> user.setPassword(null));
         return users;
     }
-    
-    // Add these new endpoints for CRUD operations
     
     @PostMapping
     public ResponseEntity<?> createUser(@RequestBody User user) {
         System.out.println("🆕 Creating new user: " + user.getUsername());
         try {
             User createdUser = userService.createUser(user);
-            // Remove password from response
             createdUser.setPassword(null);
-            System.out.println("✅ User created successfully: " + createdUser.getUsername());
+            System.out.println("User created successfully: " + createdUser.getUsername());
             return ResponseEntity.ok(createdUser);
         } catch (Exception e) {
-            System.err.println("❌ Error creating user: " + e.getMessage());
+            System.err.println("Error creating user: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
     
     @PutMapping("/{userId}")
     public ResponseEntity<?> updateUser(@PathVariable String userId, @RequestBody User user) {
-        System.out.println("✏️ Updating user: " + userId);
+        System.out.println("Updating user: " + userId);
         try {
             User updatedUser = userService.updateUser(userId, user);
-            // Remove password from response
             updatedUser.setPassword(null);
-            System.out.println("✅ User updated successfully: " + updatedUser.getUsername());
+            System.out.println("User updated successfully: " + updatedUser.getUsername());
             return ResponseEntity.ok(updatedUser);
         } catch (Exception e) {
-            System.err.println("❌ Error updating user: " + e.getMessage());
+            System.err.println("Error updating user: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
@@ -90,18 +85,17 @@ public class UserController {
         System.out.println("🗑️ Deleting user: " + userId);
         try {
             userService.deleteUser(userId);
-            System.out.println("✅ User deleted successfully: " + userId);
+            System.out.println("User deleted successfully: " + userId);
             return ResponseEntity.ok(Map.of("message", "User deleted successfully"));
         } catch (Exception e) {
-            System.err.println("❌ Error deleting user: " + e.getMessage());
+            System.err.println("Error deleting user: " + e.getMessage());
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }
     
-    // Additional endpoint to get user by ID
     @GetMapping("/{userId}")
     public ResponseEntity<?> getUserById(@PathVariable String userId) {
-        System.out.println("🔍 Fetching user by ID: " + userId);
+        System.out.println("Fetching user by ID: " + userId);
         Optional<User> user = userService.getUserById(userId);
         if (user.isPresent()) {
             user.get().setPassword(null);
