@@ -16,7 +16,6 @@ import {
 import { Bar, Line, Pie, Doughnut } from 'react-chartjs-2';
 import './Analytics.css';
 
-// Register ChartJS components
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -35,7 +34,6 @@ const Analytics = ({ user, onLogout }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fallback data in case API is not available
   const fallbackData = {
     summary: {
       totalWorkflows: 156,
@@ -175,13 +173,12 @@ const Analytics = ({ user, onLogout }) => {
         }
       });
       
-      console.log('✅ Analytics data received from Spring Boot:', response.data);
+      console.log('Analytics data received from Spring Boot:', response.data);
       setAnalyticsData(response.data);
       
     } catch (err) {
-      console.error('❌ Spring Boot analytics error:', err);
+      console.error('Spring Boot analytics error:', err);
       
-      // If Spring Boot fails, try FastAPI directly as fallback
       try {
         console.log('🔄 Trying FastAPI direct connection as fallback...');
         const fastApiResponse = await axios.get('http://localhost:8000/api/analytics', {
@@ -190,7 +187,7 @@ const Analytics = ({ user, onLogout }) => {
         setAnalyticsData(fastApiResponse.data);
         setError('Connected to AI service directly (Spring Boot unavailable)');
       } catch (fastApiErr) {
-        console.error('❌ FastAPI analytics error:', fastApiErr);
+        console.error('FastAPI analytics error:', fastApiErr);
         setError('Both backend services unavailable. Using demo data.');
         setAnalyticsData(fallbackData);
       }
@@ -261,7 +258,6 @@ const Analytics = ({ user, onLogout }) => {
 
   return (
     <div className="analytics-container">
-      {/* Header */}
       <header className="analytics-header">
         <div className="header-content">
           <h1>Analytics Dashboard</h1>
@@ -274,11 +270,10 @@ const Analytics = ({ user, onLogout }) => {
 
       {error && (
         <div className="warning-banner">
-          <span>⚠️ {error}</span>
+          <span> {error}</span>
         </div>
       )}
 
-      {/* Summary Cards */}
       <section className="summary-section">
         <div className="summary-grid">
           <div className="summary-card primary">
@@ -315,7 +310,6 @@ const Analytics = ({ user, onLogout }) => {
         </div>
       </section>
 
-      {/* Charts Section */}
       <section className="charts-section">
         <div className="charts-grid">
           {/* Status Distribution Pie Chart */}
@@ -326,7 +320,6 @@ const Analytics = ({ user, onLogout }) => {
             </div>
           </div>
 
-          {/* Department Workflows Bar Chart */}
           <div className="chart-card">
             <h3>Workflows by Department</h3>
             <div className="chart-container">
@@ -334,7 +327,6 @@ const Analytics = ({ user, onLogout }) => {
             </div>
           </div>
 
-          {/* Monthly Trends Line Chart */}
           <div className="chart-card full-width">
             <h3>Monthly Approval Trends</h3>
             <div className="chart-container">
@@ -342,7 +334,6 @@ const Analytics = ({ user, onLogout }) => {
             </div>
           </div>
 
-          {/* Approval by Department */}
           <div className="chart-card">
             <h3>Approval Rate by Department</h3>
             <div className="chart-container">
@@ -350,7 +341,6 @@ const Analytics = ({ user, onLogout }) => {
             </div>
           </div>
 
-          {/* Amount Distribution */}
           <div className="chart-card">
             <h3>Workflows by Amount Range</h3>
             <div className="chart-container">
@@ -358,7 +348,6 @@ const Analytics = ({ user, onLogout }) => {
             </div>
           </div>
 
-          {/* Type Distribution */}
           <div className="chart-card">
             <h3>Workflows by Type</h3>
             <div className="chart-container">
@@ -368,7 +357,6 @@ const Analytics = ({ user, onLogout }) => {
         </div>
       </section>
 
-      {/* Trends and Metrics */}
       <section className="trends-section">
         <div className="trends-grid">
           {/* Weekly Comparison */}
@@ -405,7 +393,6 @@ const Analytics = ({ user, onLogout }) => {
             </div>
           </div>
 
-          {/* Efficiency Metrics */}
           <div className="trend-card">
             <h3>Efficiency Metrics</h3>
             <div className="trend-content">
