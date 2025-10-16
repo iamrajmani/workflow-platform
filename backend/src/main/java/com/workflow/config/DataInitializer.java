@@ -16,9 +16,8 @@ public class DataInitializer implements CommandLineRunner {
     public void run(String... args) throws Exception {
         userRepository.deleteAll();
         
-        System.out.println("🚀 Creating users...");
+        System.out.println("Creating users...");
         
-        // Create users with PLAIN TEXT passwords
         User admin = new User("admin", "admin@company.com", "admin123", "ADMIN", "IT");
         admin.setPassword("admin123");
         userRepository.save(admin);
@@ -31,6 +30,6 @@ public class DataInitializer implements CommandLineRunner {
         user.setPassword("user123");
         userRepository.save(user);
         
-        System.out.println("✅ Users created!");
+        System.out.println("Users created!");
     }
 }
