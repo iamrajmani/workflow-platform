@@ -8,7 +8,6 @@ import random
 
 app = FastAPI(title="Workflow AI Service")
 
-# CORS middleware
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,7 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Request models
 class WorkflowPredictionRequest(BaseModel):
     title: str
     description: str
@@ -34,7 +32,6 @@ class AnalyticsResponse(BaseModel):
     charts: Dict[str, Any]
     trends: Dict[str, Any]
 
-# Add the missing MockMLModel class
 class MockMLModel:
     def __init__(self):
         self.type_weights = {
@@ -52,19 +49,15 @@ class MockMLModel:
         }
     
     def predict(self, workflow_data: Dict) -> Dict[str, Any]:
-        # Extract features
         workflow_type = workflow_data.get('type', 'PROJECT')
         department = workflow_data.get('department', 'Engineering')
         amount = workflow_data.get('amount', 0) or 0
         
-        # Base probability from type
         base_prob = self.type_weights.get(workflow_type, 0.5)
         
-        # Adjust by department
         dept_factor = self.dept_weights.get(department, 0.5)
         base_prob = (base_prob + dept_factor) / 2
         
-        # Adjust by amount
         if amount > 0:
             if amount < 1000:
                 base_prob += 0.2
@@ -73,10 +66,8 @@ class MockMLModel:
             elif amount > 10000:
                 base_prob -= 0.5
         
-        # Ensure probability is between 0 and 1
         probability = max(0.1, min(0.95, base_prob))
         
-        # Determine suggestion
         if probability > 0.7:
             suggestion = "APPROVE"
         elif probability > 0.4:
@@ -90,7 +81,6 @@ class MockMLModel:
             "confidence": round(0.85 + (probability * 0.1), 2)
         }
 
-# Mock Analytics Data Generator
 class AnalyticsService:
     def __init__(self):
         self.departments = ["Engineering", "Finance", "HR", "IT", "Operations", "Marketing", "Sales"]
@@ -98,7 +88,6 @@ class AnalyticsService:
         self.statuses = ["PENDING", "APPROVED", "REJECTED", "REVIEW"]
     
     def generate_analytics_data(self) -> Dict[str, Any]:
-        # Summary statistics
         summary = {
             "totalWorkflows": 156,
             "pendingWorkflows": 23,
@@ -109,7 +98,6 @@ class AnalyticsService:
             "totalAmountProcessed": 452800
         }
         
-        # Chart data
         charts = {
             "statusDistribution": self._generate_status_chart(),
             "departmentWorkflows": self._generate_department_chart(),
@@ -119,7 +107,6 @@ class AnalyticsService:
             "amountDistribution": self._generate_amount_chart()
         }
         
-        # Trends data
         trends = {
             "weeklyComparison": self._generate_weekly_comparison(),
             "topPerformers": self._generate_top_performers(),
@@ -270,7 +257,6 @@ class AnalyticsService:
             "userSatisfaction": 4.2
         }
 
-# Initialize services
 ml_model = MockMLModel()  # This should work now
 analytics_service = AnalyticsService()
 
