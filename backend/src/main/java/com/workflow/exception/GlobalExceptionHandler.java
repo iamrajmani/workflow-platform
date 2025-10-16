@@ -11,7 +11,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<?> handleAllExceptions(Exception e) {
-        System.err.println("💥 GLOBAL EXCEPTION: " + e.getMessage());
+        System.err.println("GLOBAL EXCEPTION: " + e.getMessage());
         e.printStackTrace();
         
         Map<String, Object> response = new HashMap<>();
