@@ -27,7 +27,6 @@ public class AuthController {
                 return ResponseEntity.badRequest().body(Map.of("error", "Username and password required"));
             }
             
-            // Try database authentication
             Optional<User> userOpt = userService.authenticate(username, password);
             if (userOpt.isPresent()) {
                 User user = userOpt.get();
