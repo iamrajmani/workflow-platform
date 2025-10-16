@@ -13,3 +13,9 @@ docker-compose up --build
 # Frontend: http://localhost:3000
 # Backend: http://localhost:8080
 # ML Service: http://localhost:8000
+
+username & password : 
+
+user        user123
+manager     manager123
+admin       admin123
