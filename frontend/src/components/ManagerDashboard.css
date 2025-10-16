@@ -1,0 +1,78 @@
+.manager-dashboard {
+  padding: 2rem;
+  font-family: "Segoe UI", sans-serif;
+  color: #222;
+  background: #f8f9fa;
+  min-height: 100vh;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  background: #dc3545;
+  border: none;
+  padding: 6px 12px;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: #b02a37;
+}
+
+.workflow-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.workflow-table th, .workflow-table td {
+  border: 1px solid #ddd;
+  padding: 10px 14px;
+  text-align: center;
+}
+
+.workflow-table th {
+  background-color: #007bff;
+  color: white;
+}
+
+.approve-btn {
+  background: #28a745;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.approve-btn:hover {
+  background: #218838;
+}
+
+.reject-btn {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.reject-btn:hover {
+  background: #c82333;
+}
+
+.no-tasks {
+  margin-top: 1rem;
+  color: #555;
+}

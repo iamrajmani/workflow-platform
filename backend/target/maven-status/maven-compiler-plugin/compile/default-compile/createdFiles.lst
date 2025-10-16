@@ -1,0 +1,4 @@
+com/workflow/model/Workflow.class
+com/workflow/WorkflowApplication.class
+com/workflow/model/User.class
+com/workflow/repository/UserRepository.class
